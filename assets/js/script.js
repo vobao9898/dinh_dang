@@ -22,14 +22,19 @@ async function showImage(imgName) {
   await jQuery.get(imgName, async function (data) {
     var newData = data.replace(/ /g, "&nbsp;");
     var lines = newData.split("\n");
-    document.write("<div style='color: white; width: 100%; overflow-x: hidden;'>");
+    document.write(
+      "<div style='color: white; width: 100%; overflow-x: hidden;'>"
+    );
     document.write(
       "<div id='countdown' style='text-align: center; width: 100%'></div>"
     );
     document.write(
       "<div style='display: flex; justify-content: center; width: 100%'>"
     );
-    document.write("<div style='width: 96%; margin-top:10px'>");
+    document.write("<div style='max-width: 96%; margin-top:10px'>");
+    document.write(
+      "<audio src='./../../assets/music/yen_vo_hiet.mp3' controls='true' loop='true' preload='true' id='nhac' style='display: none'></audio>"
+    );
 
     // if (isMobile()) {
     //   for (var line = 0; line < lines.length; line++) {
@@ -72,6 +77,15 @@ async function showImage(imgName) {
     document.write("</div>");
   });
   await updateCountdown();
+  var audio = await document.getElementById("nhac");
+  if (audio) {
+    audio.play();
+  }
+}
+
+var audio = document.getElementById("nhac");
+if (audio) {
+  audio.play();
 }
 
 showImage("assets/texts/dinhdang.txt");
