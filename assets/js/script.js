@@ -22,47 +22,21 @@ async function showImage(imgName) {
   await jQuery.get(imgName, async function (data) {
     var newData = data.replace(/ /g, "&nbsp;");
     var lines = newData.split("\n");
-    document.write(
+    await document.write(
       "<div style='color: white; width: 100%; overflow-x: hidden;'>"
     );
-    document.write(
+    await document.write(
       "<div id='countdown' style='text-align: center; width: 100%'></div>"
     );
-    document.write(
+    await document.write(
       "<div style='display: flex; justify-content: center; width: 100%'>"
     );
-    document.write("<div style='max-width: 96%; margin-top:10px'>");
-    document.write(
-      "<audio src='./../../assets/music/yen_vo_hiet.mp3' controls='true' loop='true' preload='true' id='nhac' style='display: none'></audio>"
+    await document.write("<div style='max-width: 96%; margin-top:10px'>");
+    await document.write(
+      "<audio src='./assets/js/yen_vo_hiet.mp3' controls='true' loop='true' preload='true' id='nhac' autoplay></audio>"
     );
-
-    // if (isMobile()) {
-    //   for (var line = 0; line < lines.length; line++) {
-    //     document.write(
-    //       "<p style='color:white;white-space: nowrap;margin:0;font-family: monospace;font-size: 4px' id='img_" +
-    //         line +
-    //         "'></p>"
-    //     );
-    //     document.body.style.backgroundColor = "black";
-    //     document.getElementById("img_" + line).innerHTML = lines[line];
-    //     window.scrollTo(0, document.body.scrollHeight);
-    //     await sleep(50);
-    //   }
-    // } else {
-    //   for (var line = 0; line < lines.length; line++) {
-    //     document.write(
-    //       "<p style='color:white;white-space: nowrap;margin:0;font-family: monospace' id='img_" +
-    //         line +
-    //         "'></p>"
-    //     );
-    //     document.body.style.backgroundColor = "black";
-    //     document.getElementById("img_" + line).innerHTML = lines[line];
-    //     window.scrollTo(0, document.body.scrollHeight);
-    //     await sleep(50);
-    //   }
-    // }
     for (var line = 0; line < lines.length; line++) {
-      document.write(
+      await document.write(
         "<p style='color:white;white-space: nowrap;margin:0;font-family: monospace;font-size: 4px' id='img_" +
           line +
           "'></p>"
@@ -72,21 +46,18 @@ async function showImage(imgName) {
       window.scrollTo(0, document.body.scrollHeight);
       await sleep(50);
     }
-    document.write("</div>");
-    document.write("</div>");
-    document.write("</div>");
+
+    await document.write("</div>");
+    await document.write("</div>");
+    await document.write("</div>");
   });
   await updateCountdown();
-  var audio = await document.getElementById("nhac");
-  if (audio) {
-    audio.play();
-  }
 }
+// var audio = new Audio("./assets/js/yen_vo_hiet.mp3");
+// if(audio){
+//   audio.play();
+// }
 
-var audio = document.getElementById("nhac");
-if (audio) {
-  audio.play();
-}
 
 showImage("assets/texts/dinhdang.txt");
 
@@ -117,17 +88,35 @@ function calculateTimeLeft() {
   };
 }
 
-// Hàm cập nhật đếm ngược trên trang web
 function updateCountdown() {
   const countdownElement = document.getElementById("countdown");
   const timeLeft = calculateTimeLeft();
-
   const text = `Còn lại ${timeLeft.days} ngày, ${timeLeft.hours} giờ, ${timeLeft.minutes} phút, ${timeLeft.seconds} giây`;
-
   countdownElement.innerHTML = text;
-
-  // Cập nhật lại sau mỗi giây
   setTimeout(updateCountdown, 1000);
 }
-
-// Bắt đầu đếm ngược
+// if (isMobile()) {
+//   for (var line = 0; line < lines.length; line++) {
+//     await document.write(
+//       "<p style='color:white;white-space: nowrap;margin:0;font-family: monospace;font-size: 4px' id='img_" +
+//         line +
+//         "'></p>"
+//     );
+//     document.body.style.backgroundColor = "black";
+//     document.getElementById("img_" + line).innerHTML = lines[line];
+//     window.scrollTo(0, document.body.scrollHeight);
+//     await sleep(50);
+//   }
+// } else {
+//   for (var line = 0; line < lines.length; line++) {
+//     await document.write(
+//       "<p style='color:white;white-space: nowrap;margin:0;font-family: monospace' id='img_" +
+//         line +
+//         "'></p>"
+//     );
+//     document.body.style.backgroundColor = "black";
+//     document.getElementById("img_" + line).innerHTML = lines[line];
+//     window.scrollTo(0, document.body.scrollHeight);
+//     await sleep(50);
+//   }
+// }
