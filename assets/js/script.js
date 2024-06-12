@@ -2,7 +2,8 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-function showImage(imgName) {
+async function showImage(imgName) {
+  const show = document.getElementById("showImage");
   function isMobile() {
     let check = false;
     (function (a) {
@@ -18,11 +19,14 @@ function showImage(imgName) {
     })(navigator.userAgent || navigator.vendor || window.opera);
     return check;
   }
-  jQuery.get(imgName, async function (data) {
+  await jQuery.get(imgName, async function (data) {
     var newData = data.replace(/ /g, "&nbsp;");
     var lines = newData.split("\n");
+    document.write("<div style='color: white'>");
+    document.write("<div id='countdown' style='text-align: center'></div>");
     document.write("<div style='display: flex; justify-content: center'>");
     document.write("<div>");
+
     // if (isMobile()) {
     //   for (var line = 0; line < lines.length; line++) {
     //     document.write(
@@ -49,19 +53,63 @@ function showImage(imgName) {
     //   }
     // }
     for (var line = 0; line < lines.length; line++) {
-        document.write(
-          "<p style='color:white;white-space: nowrap;margin:0;font-family: monospace;font-size: 4px' id='img_" +
-            line +
-            "'></p>"
-        );
-        document.body.style.backgroundColor = "black";
-        document.getElementById("img_" + line).innerHTML = lines[line];
-        window.scrollTo(0, document.body.scrollHeight);
-        await sleep(50);
-      }
+      document.write(
+        "<p style='color:white;white-space: nowrap;margin:0;font-family: monospace;font-size: 4px' id='img_" +
+          line +
+          "'></p>"
+      );
+      document.body.style.backgroundColor = "black";
+      document.getElementById("img_" + line).innerHTML = lines[line];
+      window.scrollTo(0, document.body.scrollHeight);
+      await sleep(50);
+    }
+    document.write("</div>");
     document.write("</div>");
     document.write("</div>");
   });
+  await updateCountdown();
 }
 
 showImage("assets/texts/dinhdang.txt");
+
+const birthday = new Date("2024-06-21");
+
+let now = new Date();
+
+if (now > birthday) {
+  birthday.setFullYear(now.getFullYear() + 1);
+}
+
+function calculateTimeLeft() {
+  now = new Date();
+  const timeLeft = birthday - now;
+
+  const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+  const hours = Math.floor(
+    (timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+  );
+  const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+  return {
+    days,
+    hours,
+    minutes,
+    seconds,
+  };
+}
+
+// Hàm cập nhật đếm ngược trên trang web
+function updateCountdown() {
+  const countdownElement = document.getElementById("countdown");
+  const timeLeft = calculateTimeLeft();
+
+  const text = `Còn lại ${timeLeft.days} ngày, ${timeLeft.hours} giờ, ${timeLeft.minutes} phút, ${timeLeft.seconds} giây`;
+
+  countdownElement.innerHTML = text;
+
+  // Cập nhật lại sau mỗi giây
+  setTimeout(updateCountdown, 1000);
+}
+
+// Bắt đầu đếm ngược
