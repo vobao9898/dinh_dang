@@ -22,10 +22,14 @@ async function showImage(imgName) {
   await jQuery.get(imgName, async function (data) {
     var newData = data.replace(/ /g, "&nbsp;");
     var lines = newData.split("\n");
-    document.write("<div style='color: white'>");
-    document.write("<div id='countdown' style='text-align: center'></div>");
-    document.write("<div style='display: flex; justify-content: center'>");
-    document.write("<div>");
+    document.write("<div style='color: white; width: 100%; overflow-x: hidden;'>");
+    document.write(
+      "<div id='countdown' style='text-align: center; width: 100%'></div>"
+    );
+    document.write(
+      "<div style='display: flex; justify-content: center; width: 100%'>"
+    );
+    document.write("<div style='width: 96%; margin-top:10px'>");
 
     // if (isMobile()) {
     //   for (var line = 0; line < lines.length; line++) {
@@ -59,7 +63,7 @@ async function showImage(imgName) {
           "'></p>"
       );
       document.body.style.backgroundColor = "black";
-      document.getElementById("img_" + line).innerHTML = lines[line];
+      document.getElementById("img_" + line).innerHTML = lines[line].trim();
       window.scrollTo(0, document.body.scrollHeight);
       await sleep(50);
     }
