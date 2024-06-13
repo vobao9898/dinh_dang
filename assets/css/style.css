@@ -1,24 +1,3 @@
-body {
-    background: url("../images/bg.jpg") no-repeat center center fixed;
-    background-size: cover;
-}
-
-.main_container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-}
-
-.modal-body img {
-    margin-bottom: 10px;
-}
-
-.content {
-    display: flex;
-    justify-content: center;
-}
-
 #nhac{
-    display: none;
+    display: block;
 }
