@@ -7,7 +7,7 @@ async function showImage(imgName) {
     var newData = data.replace(/ /g, "&nbsp;");
     var lines = newData.split("\n");
     await document.write(
-      "<div style='color: white; width: 100%; overflow-x: hidden;'>"
+      "<div style='color:white; width: 100%; overflow-x: hidden; margin: 0px'>"
     );
     await document.write(
       "<div id='countdown' style='text-align: center; width: 100%'></div>"
@@ -15,17 +15,18 @@ async function showImage(imgName) {
     await document.write(
       "<div style='display: flex; justify-content: center; width: 100%'>"
     );
-    await document.write("<div style='max-width: 96%; margin-top:10px'>");
+    await document.write("<div style='max-width: 100%; margin-top:10px'>");
     await document.write(
-      "<iframe src='nhac.html' style='display: none'></iframe>"
+      "<iframe src='nhac.html' style='display: none' ></iframe>"
     );
     for (var line = 0; line < lines.length; line++) {
       await document.write(
-        "<p style='color:white;white-space: nowrap;margin:0;font-family: monospace;font-size: 4px' id='img_" +
+        "<p style='white-space: nowrap;margin:0;font-family: monospace;font-size: 4px; text-align: center' id='img_" +
           line +
           "'></p>"
       );
       document.body.style.backgroundColor = "black";
+      document.body.style.margin = "0px";
       document.getElementById("img_" + line).innerHTML = lines[line].trim();
       window.scrollTo(0, document.body.scrollHeight);
       await sleep(50);
@@ -70,7 +71,7 @@ function calculateTimeLeft() {
 function updateCountdown() {
   const countdownElement = document.getElementById("countdown");
   const timeLeft = calculateTimeLeft();
-  const text = `Còn lại ${timeLeft.days} ngày, ${timeLeft.hours} giờ, ${timeLeft.minutes} phút, ${timeLeft.seconds} giây`;
+  const text = `${timeLeft.days} ngày, ${timeLeft.hours} giờ, ${timeLeft.minutes} phút, ${timeLeft.seconds} giây`;
   countdownElement.innerHTML = text;
   setTimeout(updateCountdown, 1000);
 }
